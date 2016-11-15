@@ -73,8 +73,6 @@
 		76C8EC7D1DD333AE00D97D42 /* SkillApp */ = {
 			isa = PBXGroup;
 			children = (
-				76C8ECA11DD9F73B00D97D42 /* TMHistoryCell.h */,
-				76C8ECA21DD9F73B00D97D42 /* TMHistoryCell.m */,
 				76C8EC811DD333AE00D97D42 /* AppDelegate.h */,
 				76C8EC821DD333AE00D97D42 /* AppDelegate.m */,
 				76C8EC871DD333AE00D97D42 /* Main.storyboard */,
@@ -85,6 +83,8 @@
 				76C8EC7E1DD333AE00D97D42 /* Supporting Files */,
 				76C8EC981DD5C2F600D97D42 /* TMViewController.h */,
 				76C8EC991DD5C2F600D97D42 /* TMViewController.m */,
+				76C8ECA11DD9F73B00D97D42 /* TMHistoryCell.h */,
+				76C8ECA21DD9F73B00D97D42 /* TMHistoryCell.m */,
 			);
 			path = SkillApp;
 			sourceTree = "<group>";

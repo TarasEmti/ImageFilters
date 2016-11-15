@@ -137,10 +137,17 @@
             break;
         }
             
-        case 4:
+        case 4: {
             
             resultImg = [TMFilterFactory invertColors:originalImg];
             break;
+        }
+            
+        case 5: {
+            
+            resultImg = [TMFilterFactory mirrorLeftHalf:originalImg];
+            break;
+        }
             
         default:
             break;

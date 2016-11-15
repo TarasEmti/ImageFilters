@@ -19,5 +19,7 @@
 
 + (UIImage*) invertColors:(UIImage*)image;
 
++ (UIImage*) mirrorLeftHalf:(UIImage*)image;
+
 @end
 
