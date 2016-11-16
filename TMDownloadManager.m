@@ -18,9 +18,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:urlLink];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
     
-    if (connection) {
-        NSLog(@"Connection - OK");
-    } else {
+    if (connection == nil) {
         [delegate handleError];
     }
 }

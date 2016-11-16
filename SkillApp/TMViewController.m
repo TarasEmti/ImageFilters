@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSArray *imagesGroup;
 @property (strong, nonatomic) UIView *loadingView;
 
+@property (assign) int cellsFitInHeight;
+
 @end
 
 @implementation TMViewController
@@ -31,6 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //Number of cells you can see in TableView without scrolling
+    _cellsFitInHeight = 3;
+    
     _historyTableView.tableFooterView = [UIView new];
     _historyTableView.delegate = self;
     _historyTableView.dataSource = self;
@@ -201,7 +206,7 @@
     
     UIAlertController* URLLinkCollector = [UIAlertController alertControllerWithTitle:@"Загрузить" message:@"Введите URL картинки" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* startDownload = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction* startDownload = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UITextField *urlEnter = URLLinkCollector.textFields[0];
         NSString *urlText = [NSString stringWithString:urlEnter.text];
@@ -227,11 +232,12 @@
             
         } else {
             
-            UIAlertController* wrongUrl = [UIAlertController alertControllerWithTitle:@"Error" message:@"URL has no image" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-            [wrongUrl addAction:ok];
-            [self presentViewController:wrongUrl animated:YES completion:nil];
+            [self handleError];
         }
+    }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self resignFirstResponder];
     }];
     
     [URLLinkCollector addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -240,6 +246,7 @@
     }];
     
     [URLLinkCollector addAction:startDownload];
+    [URLLinkCollector addAction:cancel];
     
     [self presentViewController:URLLinkCollector animated:YES completion:nil];
 }
@@ -325,7 +332,6 @@
                              withRowAnimation:UITableViewRowAnimationTop];
     
     [_historyTableView endUpdates];
-
 }
 
 #pragma mark - UITableViewDelegate
@@ -367,7 +373,6 @@
                                  withRowAnimation:UITableViewRowAnimationFade];
         
         [_historyTableView endUpdates];
-        
     }];
     
     UIAlertAction* cancel= [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:^(UIAlertAction* _Nonnull action) {
@@ -382,14 +387,11 @@
     [imageOptions addAction:cancel];
     
     [self presentViewController:imageOptions animated:YES completion:nil];
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    int cellsFitInHeight = 5;
-    
-    CGFloat cellSize = [[self view] frame].size.height / cellsFitInHeight;
+    CGFloat cellSize = [[self view] frame].size.height / (_cellsFitInHeight * 2);
     return cellSize;
 }
 
@@ -398,8 +400,6 @@
 - (void)progressChanged:(float)progress {
     
     [_downloadProgressBar setProgress:progress];
-    
-    NSLog(@"%f - loading progress", progress);
 }
 
 - (void)imageDidLoad:(UIImage *)image {
@@ -407,11 +407,10 @@
     [_downloadProgressBar setHidden:YES];
     [_loadingView setHidden:YES];
     
-    _currentImage.image = image;
-    
     if (_loadImageButton.hidden == NO) {
         [_loadImageButton setHidden:YES];
     }
+    _currentImage.image = image;
 }
 
 - (void)handleError {
@@ -422,6 +421,12 @@
     if (_currentImage.image == nil) {
         [_loadImageButton setHidden:NO];
     }
+    
+    UIAlertController* wrongUrl = [UIAlertController alertControllerWithTitle:@"Error" message:@"Invalid URL" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [wrongUrl addAction:ok];
+    [self presentViewController:wrongUrl animated:YES completion:nil];
 }
 
 @end

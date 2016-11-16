@@ -18,7 +18,7 @@
     [filter setValue:ciimg forKey:kCIInputImageKey];
     
     CIImage *result = [filter outputImage];
-    CIContext   *context = [CIContext contextWithOptions:nil];
+    CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgimg = [context createCGImage:result fromRect:[result extent]];
     
     UIImage *resultImg = [UIImage imageWithCGImage:cgimg];
@@ -40,7 +40,7 @@
               forKey:@"inputTransform"];
     
     CIImage *result = [rotate outputImage];
-    CIContext   *context = [CIContext contextWithOptions:nil];
+    CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgimg = [context createCGImage:result fromRect:[result extent]];
     
     UIImage *resultImg = [UIImage imageWithCGImage:cgimg];
@@ -62,7 +62,7 @@
               forKey:@"inputTransform"];
     
     CIImage *result = [rotate outputImage];
-    CIContext   *context = [CIContext contextWithOptions:nil];
+    CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgimg = [context createCGImage:result fromRect:[result extent]];
     
     UIImage *resultImg = [UIImage imageWithCGImage:cgimg];
@@ -78,7 +78,7 @@
     [filter setValue:ciimg forKey:kCIInputImageKey];
     
     CIImage *result = [filter outputImage];
-    CIContext   *context = [CIContext contextWithOptions:nil];
+    CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgimg = [context createCGImage:result fromRect:[result extent]];
     
     UIImage *resultImg = [UIImage imageWithCGImage:cgimg];
