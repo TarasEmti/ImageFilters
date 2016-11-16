@@ -54,6 +54,7 @@
         loadImageButton.layer.borderColor = [UIColor blackColor].CGColor;
         
         [loadImageButton setTitle:@"Выбрать изображение..." forState:UIControlStateNormal];
+        loadImageButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         [loadImageButton addTarget:self action:@selector(selectCurrentImage) forControlEvents:UIControlEventTouchUpInside];
         _loadImageButton = loadImageButton;
         [self.view addSubview:loadImageButton];
