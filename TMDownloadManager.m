@@ -20,8 +20,12 @@
     
     if (connection) {
         NSLog(@"Connection - OK");
+    } else {
+        [delegate handleError];
     }
 }
+
+#pragma mark - NSURLConnectionDelegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     
@@ -52,7 +56,6 @@
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
-    NSLog(@"Something went wrong in image download");
     [delegate handleError];
 }
 

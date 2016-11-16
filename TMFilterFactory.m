@@ -89,7 +89,6 @@
 + (UIImage*) mirrorLeftHalf:(UIImage*)image {
     
     CGImageRef inImage = image.CGImage;
-    UIImage * flipImage = [UIImage imageWithCGImage:inImage scale:1.0 orientation:UIImageOrientationUpMirrored];
     
     CGContextRef ctx = CGBitmapContextCreate(NULL,
                                              CGImageGetWidth(inImage),
@@ -101,16 +100,19 @@
     
     CGRect cropRect = CGRectMake(0,
                                  0,
-                                 flipImage.size.width/2,
-                                 flipImage.size.height);
+                                 image.size.width/2,
+                                 image.size.height);
     
     CGImageRef otherHalf = CGImageCreateWithImageInRect(inImage, cropRect);
     
-    CGContextDrawImage(ctx, CGRectMake(0, 0, CGImageGetWidth(inImage), CGImageGetHeight(inImage)), inImage);
+    CGContextDrawImage(ctx, CGRectMake(0,
+                                       0,
+                                       CGImageGetWidth(inImage),
+                                       CGImageGetHeight(inImage)),
+                       inImage);
     
-    CGAffineTransform t = CGAffineTransformMakeTranslation(flipImage.size.width, 0.0);
+    CGAffineTransform t = CGAffineTransformMakeTranslation(image.size.width, 0.0);
     t = CGAffineTransformScale(t, -1.0, 1.0);
-    
     CGContextConcatCTM(ctx, t);
     CGContextDrawImage(ctx, cropRect, otherHalf);
     

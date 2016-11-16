@@ -172,7 +172,29 @@
 
 - (void)doneSavingImage:(UIImage*)image withError:(NSError*)error andContextInfo:(void*)contextInfo {
     
-    //Здесь можно наглядно показать пользователю, что изображение успешно сохранено. Показать какой-нибудь вью на пару секунд с анимацией (как вКонтакте, к примеру)
+    UILabel* okWidndow = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 50, self.view.frame.size.height/2 - 50, 100, 100)];
+    
+    okWidndow.layer.cornerRadius = 10;
+    okWidndow.layer.masksToBounds = YES;
+    
+    okWidndow.text = @"✔️";
+    okWidndow.textAlignment = NSTextAlignmentCenter;
+    //okWidndow.opaque = NO;
+    
+    okWidndow.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+    [[self view] addSubview:okWidndow];
+    
+    [UIView animateWithDuration:2
+                          delay:1
+                        options:UIViewAnimationOptionTransitionCrossDissolve
+                     animations:^{
+                         okWidndow.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished){
+                         [okWidndow setHidden:finished];
+                     }];
+    
+    NSLog(@"Where is the Grey View?");
 }
 
 - (void)handleDownload {
