@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		768083BE1DDCA44300148C6B /* TMExifInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 768083BD1DDCA44300148C6B /* TMExifInfo.m */; };
+		768083C11DDCA4AE00148C6B /* TMExifTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 768083C01DDCA4AE00148C6B /* TMExifTableViewController.m */; };
 		76C8EC801DD333AE00D97D42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8EC7F1DD333AE00D97D42 /* main.m */; };
 		76C8EC831DD333AE00D97D42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8EC821DD333AE00D97D42 /* AppDelegate.m */; };
 		76C8EC891DD333AE00D97D42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76C8EC871DD333AE00D97D42 /* Main.storyboard */; };
@@ -20,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		768083BC1DDCA44300148C6B /* TMExifInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMExifInfo.h; path = SkillApp/TMExifInfo.h; sourceTree = "<group>"; };
+		768083BD1DDCA44300148C6B /* TMExifInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMExifInfo.m; path = SkillApp/TMExifInfo.m; sourceTree = "<group>"; };
+		768083BF1DDCA4AE00148C6B /* TMExifTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMExifTableViewController.h; sourceTree = "<group>"; };
+		768083C01DDCA4AE00148C6B /* TMExifTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMExifTableViewController.m; sourceTree = "<group>"; };
 		76C8EC7B1DD333AE00D97D42 /* SkillApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkillApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C8EC7F1DD333AE00D97D42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76C8EC811DD333AE00D97D42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,6 +63,8 @@
 				76C8ECA81DDAEACD00D97D42 /* TMDownloadManager.m */,
 				76C8ECA41DDADCAA00D97D42 /* TMFilterFactory.h */,
 				76C8ECA51DDADCAA00D97D42 /* TMFilterFactory.m */,
+				768083BC1DDCA44300148C6B /* TMExifInfo.h */,
+				768083BD1DDCA44300148C6B /* TMExifInfo.m */,
 				76C8EC7D1DD333AE00D97D42 /* SkillApp */,
 				76C8EC7C1DD333AE00D97D42 /* Products */,
 			);
@@ -85,6 +93,8 @@
 				76C8EC991DD5C2F600D97D42 /* TMViewController.m */,
 				76C8ECA11DD9F73B00D97D42 /* TMHistoryCell.h */,
 				76C8ECA21DD9F73B00D97D42 /* TMHistoryCell.m */,
+				768083BF1DDCA4AE00148C6B /* TMExifTableViewController.h */,
+				768083C01DDCA4AE00148C6B /* TMExifTableViewController.m */,
 			);
 			path = SkillApp;
 			sourceTree = "<group>";
@@ -168,12 +178,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				768083BE1DDCA44300148C6B /* TMExifInfo.m in Sources */,
 				76C8ECA31DD9F73B00D97D42 /* TMHistoryCell.m in Sources */,
 				76C8ECA91DDAEACE00D97D42 /* TMDownloadManager.m in Sources */,
 				76C8EC8C1DD333AE00D97D42 /* SkillApp.xcdatamodeld in Sources */,
 				76C8EC9A1DD5C2F600D97D42 /* TMViewController.m in Sources */,
 				76C8EC831DD333AE00D97D42 /* AppDelegate.m in Sources */,
 				76C8EC801DD333AE00D97D42 /* main.m in Sources */,
+				768083C11DDCA4AE00148C6B /* TMExifTableViewController.m in Sources */,
 				76C8ECA61DDADCAA00D97D42 /* TMFilterFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +349,7 @@
 				76C8EC971DD333AE00D97D42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

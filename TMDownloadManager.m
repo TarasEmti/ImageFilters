@@ -8,13 +8,22 @@
 
 #import "TMDownloadManager.h"
 
+@interface TMDownloadManager ()
+
+@property (strong, nonatomic) NSURL* url;
+
+@end
+
 @implementation TMDownloadManager
 
 @synthesize delegate;
 
+
+
 - (void)downloadImageFromURL:(NSString*)url {
     
     NSURL* urlLink = [NSURL URLWithString:url];
+    _url = urlLink;
     NSURLRequest *request = [NSURLRequest requestWithURL:urlLink];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
     
@@ -49,7 +58,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
     UIImage* image = [UIImage imageWithData:self.imageData];
-    [delegate imageDidLoad:image];
+    [delegate imageDidLoad:image fromURL:_url];
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

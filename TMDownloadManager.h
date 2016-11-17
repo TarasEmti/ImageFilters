@@ -25,7 +25,7 @@
 
 @protocol TMDownloadManagerDelegate <NSObject>
 
-- (void) imageDidLoad:(UIImage*)image;
+- (void) imageDidLoad:(UIImage*)image fromURL:(NSURL*)url;
 - (void) progressChanged:(float)progress;
 - (void) handleError;
 

@@ -9,12 +9,14 @@
 #import "TMViewController.h"
 #import "TMHistoryCell.h"
 #import "TMFilterFactory.h"
+#import "TMExifTableViewController.h"
 
 #import <CoreImage/CoreImage.h>
 
 @interface TMViewController ()
 
 - (IBAction)filterAction:(UIButton*)filterButton;
+- (IBAction)exifRequest:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIImageView *currentImage;
 @property (weak, nonatomic) IBOutlet UITableView *historyTableView;
@@ -23,6 +25,9 @@
 @property (weak, nonatomic) UIButton *loadImageButton;
 @property (strong, nonatomic) NSArray *imagesGroup;
 @property (strong, nonatomic) UIView *loadingView;
+
+@property (strong, nonatomic) TMExifInfo *dataCollector;
+@property (strong, nonatomic) NSURL *assertURL;
 
 @property (assign) int cellsFitInHeight;
 
@@ -35,6 +40,9 @@
 
     //Number of cells you can see in TableView without scrolling
     _cellsFitInHeight = 3;
+    
+    _dataCollector = [[TMExifInfo alloc] init];
+    _dataCollector.delegate = self;
     
     _historyTableView.tableFooterView = [UIView new];
     _historyTableView.delegate = self;
@@ -53,7 +61,7 @@
         loadImageButton.layer.borderWidth = 1;
         loadImageButton.layer.borderColor = [UIColor blackColor].CGColor;
         
-        [loadImageButton setTitle:@"Выбрать изображение..." forState:UIControlStateNormal];
+        [loadImageButton setTitle:@"Выбрать изображение" forState:UIControlStateNormal];
         loadImageButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         [loadImageButton addTarget:self action:@selector(selectCurrentImage) forControlEvents:UIControlEventTouchUpInside];
         _loadImageButton = loadImageButton;
@@ -163,6 +171,18 @@
     
 }
 
+- (IBAction)exifRequest:(UIButton *)sender {
+    
+    if (_currentImage.image) {
+        
+        //TMExifTableViewController* exifView = [[TMExifTableViewController alloc] initWithExifDict:[TMExifInfo getExifDataFromURL:_assertURL]];
+        //TMExifTableViewController* exifView = [[TMExifTableViewController alloc] initWithExifDict:exifData];
+        
+        //[self showViewController:exifView sender:self];
+        [_dataCollector collectEXIFdata:_assertURL];
+    }
+}
+
 - (void)historyCellSelected:(UITapGestureRecognizer*)sender {
     
     CGPoint tapLocation = [sender locationInView:_historyTableView];
@@ -251,12 +271,30 @@
     
     [self presentViewController:URLLinkCollector animated:YES completion:nil];
 }
-# pragma mark - UIImagePickerController
+
+- (void)chageCurrentImage:(UIImage*)image andSourceURL:(NSURL*)url {
+    
+    _currentImage.image = image;
+    _assertURL = url;
+}
+
+#pragma mark - TMExifInfoDelegate
+
+- (void)dataCollected:(NSDictionary *)exifData {
+    
+    TMExifTableViewController* exifView = [[TMExifTableViewController alloc] initWithExifDict:exifData];
+    
+    [self showViewController:exifView sender:self];
+}
+
+#pragma mark - UIImagePickerController
 
 - (void)handleGallery {
     
     UIImagePickerController* picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
+    //Uncomment if you need editing
+    //picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [self presentViewController:picker animated:YES completion:nil];
@@ -281,6 +319,8 @@
     
     UIImagePickerController* picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
+    //Uncomment if you need editing
+    //picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     [self presentViewController:picker animated:YES completion:nil];
@@ -290,8 +330,11 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    UIImage *chosenImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    _currentImage.image = chosenImage;
+    UIImage *chosenImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSURL* url = [info objectForKey:UIImagePickerControllerReferenceURL];
+    //NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
+    
+    [self chageCurrentImage:chosenImage andSourceURL:url];
     
     if (_loadImageButton.hidden == NO) {
         [_loadImageButton setHidden:YES];
@@ -403,7 +446,7 @@
     [_downloadProgressBar setProgress:progress];
 }
 
-- (void)imageDidLoad:(UIImage *)image {
+- (void)imageDidLoad:(UIImage *)image fromURL:(NSURL *)url {
     
     [_downloadProgressBar setHidden:YES];
     [_loadingView setHidden:YES];
@@ -411,7 +454,7 @@
     if (_loadImageButton.hidden == NO) {
         [_loadImageButton setHidden:YES];
     }
-    _currentImage.image = image;
+    [self chageCurrentImage:image andSourceURL:url];
 }
 
 - (void)handleError {

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TMDownloadManager.h"
+#import "TMExifInfo.h"
 
-@interface TMViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UITableViewDelegate, UITableViewDataSource, TMDownloadManagerDelegate>
+@interface TMViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UITableViewDelegate, UITableViewDataSource, TMDownloadManagerDelegate, TMExifInfoDelegate>
 
 @end
