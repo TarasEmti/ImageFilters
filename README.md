@@ -9,3 +9,6 @@ monochrome colors, mirror image horizontally, mirror left half of the image on t
 3. After filters apply your history TableView will update. If you like new image, you can save it or set 
 as image to work with. If you don't like it - you can delete it.
 4. If you pick image from Photo Library, you can look up it's EXIF data.
+
+Used libraries:
+CoreImage, UIKit, ImageIO.
